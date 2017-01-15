@@ -14,7 +14,7 @@
     "gulp-sass": "^3.1.0"
   },
   "scripts": {
-    "test": "node node_modules/gulp-cli/bin/gulp test"
+    "test": "echo \"Error: no test specified\""
   },
   "repository": {
     "type": "git",

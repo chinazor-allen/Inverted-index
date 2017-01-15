@@ -31,10 +31,12 @@ gulp.task('sass', () => {
     .pipe(bs.reload({stream: true}));
 });
 
+/*
  //Test task.
 gulp.task('test', ['watch'], function(done) {
     done();
 });
+*/
 
 //Default task(s).
 gulp.task('default', ['watch'], (done) => {
