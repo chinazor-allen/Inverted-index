@@ -1,12 +1,56 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>InvertedIndex</title>
-    </head>
-    <body>
-        <h1>Some text goes here</h1>
-        <h2>Sub text goes here</h2>
-        <h1>Checking gulp</h1>
-    </body>
+<html ng-app="invertedIndex">
+<head>
+  <title>Inverted Index</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Raleway:300" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: Raleway, sans-serif;
+    }
+  </style>
+</head>
+<body ng-controller="invertedController">
+  <div class="container">
+    <h1>{{title}}</h1>
+    <hr>
+    <div class="twelve columns" style="border: 1px solid #e6e6e6">
+      <form enctype="multipart/form-data">
+        <input type="file" id="uploadedFiles" class="six columns offset-by-three-columns" file-upload multiple />
+        <div class="twelve columns">
+            <button type="button" class="button button-primary twelve columns" ng-click="uploadFile()">Upload</button>
+        </div>
+      </form>
+    </div>
+
+    <hr>
+    <div class="twelve columns">
+      <select name="selectedFile" ng-model="selectedFile" id="" ng-disabled="!files">
+        <option value="">Select File</option>
+        <option ng-repeat="x in files" value="{{x.name}}">{{x.name}}</option>
+      </select>
+      <button class="button" ng-click="getIndex()" ng-disabled="!files">Create Index</button>
+    </div>
+
+    <div class="row" ng-if="fileIndex">
+      <div class="twelve columns">
+        <table class="twelve columns">
+          <thead>
+            <th>Word</th>
+            <th ng-repeat="file in files">{{file.name}}</th>
+          </thead>
+          <tr ng-repeat="(key, value) in fileIndex">
+            <td>{{key}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script src="/build/inverted-index-helper.js"></script>
+  <script src="/build/inverted-index.js"></script>
+  <script type="text/javascript" src="./bower_components/angular/angular.min.js"></script>
+  <script type="text/javascript" src="app.js"></script>
+</body>
+
 </html>
