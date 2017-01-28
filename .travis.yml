@@ -1,12 +1,11 @@
+sudo: required  
+dist: trusty
 language: node_js
-sudo :  required
+
 node_js:
-  - "6"
-  - "6.1"
-  - "5.11"
-  - "4.5"
-  - "4.4"
-before_install:
+  - 6
+
+before_install:  
  - export CHROME_BIN=/usr/bin/google-chrome
  - export DISPLAY=:99.0
  - sh -e /etc/init.d/xvfb start
@@ -16,4 +15,3 @@ before_install:
  - sudo dpkg -i google-chrome*.deb
 
 after_script: cat ./coverage/**/lcov.info | ./node_modules/.bin/coveralls
-#  - npm install -g gulp
