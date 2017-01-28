@@ -1,26 +1,31 @@
 var invApp = angular.module('invertedIndex',[]);
 invApp.controller("invertedController",function($scope){
     let InvertedIndex = new invertedIndex();
-    $scope.title = "Testing Inverted Index";
+    $scope.title = "Inverted Index";
     $scope.selectedFile = "";
     $scope.files = {};
+    $scope.filesUploaded = [];
 
     $scope.uploadFile = () => {
 
         for(let index in $scope.files) {
             var reader = new FileReader();
 
-            reader.onload = event => {
+            reader.onload = (event) => {
 
                 var data = JSON.parse(event.target.result);
-                // debugger;
                 var filename = $scope.files[index].name.replace(/\s|\.|json/g, "");
 
+                if(!InvertedIndex.files[filename]) {
+                    InvertedIndex.files.allBooks = InvertedIndex.files.allBooks.concat(data);
+                }
                 InvertedIndex.files[filename] = data;
+                
                 InvertedIndex.createIndex(filename);
-                console.log($scope.files[index])
-
+                InvertedIndex.createIndex();
+                console.log(InvertedIndex);
             };
+            
              if(typeof parseInt(index) === 'number' && $scope.files[index].type === 'application/json') {
                  reader.readAsText($scope.files[index]);
              }
@@ -38,7 +43,17 @@ invApp.controller("invertedController",function($scope){
         }
     };
 
-    $scope.searchIndex =() => {
+    $scope.searchIndex =(terms) => {
+        console.log($scope.terms);
+        if($scope.selectedFile.length > 0) {
+            let fileKey = $scope.selectedFile.replace(/\s|\.|json/g, "");
+            $scope.booksIndexed = InvertedIndex.files[fileKey];
+            $scope.fileIndex = InvertedIndex.searchIndex($scope.terms, fileKey);
+        } else {
+            $scope.booksIndexed = InvertedIndex.files.allBooks;
+            $scope.fileIndex = InvertedIndex.searchIndex($scope.terms);
+            console.log(InvertedIndex.files.allBooks);
+        }
 
     };
 });
@@ -49,6 +64,11 @@ invApp.directive('fileUpload', function() {
         link: function(scope, elem, attrs) {
             elem.bind('change', () => {
                 scope.$apply(() => {
+                    angular.forEach(elem[0].files, (value, index) => {
+                        if(!scope.filesUploaded.includes(value.name)) {
+                            scope.filesUploaded.push(value.name);
+                        }
+                    });
                     scope.files = elem[0].files;
                 });
             });

@@ -8,16 +8,20 @@ var invertedIndex = function () {
   function invertedIndex() {
     _classCallCheck(this, invertedIndex);
 
-    this.files = {};
-    this.indexTable = {};
+    this.files = {
+      allBooks: []
+    };
+    this.indexTable = {
+      allIndex: {}
+    };
   }
 
   _createClass(invertedIndex, [{
     key: 'createIndex',
     value: function createIndex(filename) {
       var index = {};
-      if (Object.hasOwnProperty.call(this.files, filename)) {
-        var currentFile = this.files[filename];
+      var currentFile = filename ? this.files[filename] : this.files.allBooks;
+      if (currentFile) {
         currentFile.forEach(function (currentDoc, docIndex) {
           var currentToken = invertedIndexHelper.getToken(currentDoc.title + ' ' + currentDoc.text);
           currentToken.map(function (word) {
@@ -28,7 +32,7 @@ var invertedIndex = function () {
             }
           });
         });
-        this.indexTable[filename] = index;
+        this.indexTable[filename ? filename : 'allIndex'] = index;
       } else {
         return false;
       }
@@ -40,29 +44,21 @@ var invertedIndex = function () {
     }
   }, {
     key: 'searchIndex',
-    value: function searchIndex(terms, filenames) {
-      var _this = this;
-
-      this.searchResult = {};
-      if (typeof filenames === 'undefined') {
-        filenames = Object.keys(newInvert.indexTable);
-      }
+    value: function searchIndex(terms, filename) {
+      var searchResult = {};
       var allSearchTerms = invertedIndexHelper.getToken(terms);
-      filenames.forEach(function (file) {
-        if (file in _this.indexTable) {
-          allSearchTerms.forEach(function (term) {
-            if (term in _this.indexTable[file]) {
-              if (file in _this.searchResult) {
-                _this.searchResult[file][term] = _this.indexTable[file][term];
-              } else {
-                _this.searchResult[file] = {};
-                _this.searchResult[file][term] = _this.indexTable[file][term];
-              }
-            }
-          });
+
+      var fileIndex = this.indexTable[filename ? filename : 'allIndex'];
+      var indexedTerms = Object.keys(fileIndex);
+      allSearchTerms.forEach(function (word) {
+        if (indexedTerms.includes(word)) {
+          searchResult[word] = fileIndex[word];
+        } else {
+          searchResult[word] = [];
         }
       });
-      return this.searchResult;
+      console.log(searchResult);
+      return searchResult;
     }
   }]);
 
