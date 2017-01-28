@@ -3,7 +3,7 @@
   <title>Inverted Index</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
   <link href="https://fonts.googleapis.com/css?family=Raleway:300" rel="stylesheet">
-
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
   <style>
     body {
       font-family: Raleway, sans-serif;
@@ -36,11 +36,15 @@
       <div class="twelve columns">
         <table class="twelve columns">
           <thead>
-            <th>Word</th>
-            <th ng-repeat="file in files">{{file.name}}</th>
+            <th style="text-align: center">Word</th>
+            <th style="text-align: center" ng-repeat="index in booksIndexed track by $index">{{index.title}}</th>
           </thead>
           <tr ng-repeat="(key, value) in fileIndex">
-            <td>{{key}}</td>
+            <td style="text-align: center">{{key}}</td>
+            <td ng-repeat="index in booksIndexed track by $index" style="text-align: center">
+              <i class="fa fa-check" ng-if="value.includes($index)"></i>
+              <i class="fa fa-close" ng-if="!value.includes($index)"></i>
+            </td>
           </tr>
         </table>
       </div>

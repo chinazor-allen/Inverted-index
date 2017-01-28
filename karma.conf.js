@@ -15,9 +15,10 @@ module.exports = function (config) {
 
     // list of files / patterns to load in the browser
     files: [
-      './src/inverted-index-helper.js',
-      './src/inverted-index.js',
-      './jasmine/spec/inverted-index-test.js'
+      'src/inverted-index-helper.js',
+      'src/inverted-index.js',
+      'jasmine/spec/inverted-index-test.js',
+      'jasmine/bundle.js'
     ],
 
 
@@ -29,7 +30,8 @@ module.exports = function (config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      './src/inverted-index.js': 'coverage'
+      './src/js/inverted-index.js': 'coverage',
+      './src/js/inverted-index-helper.js': 'coverage'
     },
 
     // test results reporter to use
@@ -79,5 +81,5 @@ module.exports = function (config) {
     // Concurrency level
     // how many browser should be started simultaneous
     concurrency: Infinity
-  })
-}
+  });
+};

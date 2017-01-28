@@ -48,10 +48,10 @@ class invertedIndex{
             }
             
           }
-        })
+        });
       }
       
-    })
+    });
     return this.searchResult;
     }
 }

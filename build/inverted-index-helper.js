@@ -5,23 +5,32 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var invertedIndexHelper = function () {
-    function invertedIndexHelper() {
-        _classCallCheck(this, invertedIndexHelper);
+  function invertedIndexHelper() {
+    _classCallCheck(this, invertedIndexHelper);
+  }
+
+  _createClass(invertedIndexHelper, [{
+    key: "readBookData",
+    value: function readBookData(file) {
+      if (file.length < 1) {
+        return false;
+      } else if (!Array.isArray(file)) {
+        return false;
+      }
     }
-
-    _createClass(invertedIndexHelper, null, [{
-        key: "getToken",
-        value: function getToken(words) {
-            var filterDuplicate = [];
-            var formattedWords = words.toLowerCase().replace(/[^A-Z0-9\s]/gi, "").split(" ");
-            for (var x in formattedWords) {
-                if (filterDuplicate.indexOf(formattedWords[x]) === -1) {
-                    filterDuplicate.push(formattedWords[x]);
-                }
-            }
-            return filterDuplicate;
+  }], [{
+    key: "getToken",
+    value: function getToken(words) {
+      var filterDuplicate = [];
+      var formattedWords = words.toLowerCase().replace(/[^A-Z0-9\s]/gi, "").split(" ").sort();
+      for (var x in formattedWords) {
+        if (filterDuplicate.indexOf(formattedWords[x]) === -1) {
+          filterDuplicate.push(formattedWords[x]);
         }
-    }]);
+      }
+      return filterDuplicate;
+    }
+  }]);
 
-    return invertedIndexHelper;
+  return invertedIndexHelper;
 }();

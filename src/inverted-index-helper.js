@@ -3,7 +3,7 @@ class invertedIndexHelper {
     const filterDuplicate = [];
     var formattedWords = words.toLowerCase()
       .replace(/[^A-Z0-9\s]/gi, "")
-      .split(" ");
+      .split(" ").sort();
     for (let x in formattedWords) {
       if (filterDuplicate.indexOf(formattedWords[x]) === -1) {
         filterDuplicate.push(formattedWords[x]);

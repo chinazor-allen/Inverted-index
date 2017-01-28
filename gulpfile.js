@@ -40,11 +40,11 @@ gulp.task('build', function() {
         .pipe(gulp.dest('build'));
 });
 
-gulp.task('jasmine', function() {
-  return gulp.src(['spec/**/*_spec.js'])
-    .pipe(webpack({watch: true, output: {filename: 'spec.js'}}))
-    .pipe(jasmineBrowser.specRunner())
-    .pipe(jasmineBrowser.server());
+gulp.task('scripts', () => {
+    gulp.src('jasmine/spec/inverted-index-test.js')
+        .pipe(browserify())
+        .pipe(rename('bundle.js'))
+        .pipe(gulp.dest('./jasmine'));
 });
 
 gulp.task('sass', () => {

@@ -3,6 +3,7 @@ invApp.controller("invertedController",function($scope){
     let InvertedIndex = new invertedIndex();
     $scope.title = "Testing Inverted Index";
     $scope.selectedFile = "";
+    $scope.files = {};
 
     $scope.uploadFile = () => {
 
@@ -10,23 +11,35 @@ invApp.controller("invertedController",function($scope){
             var reader = new FileReader();
 
             reader.onload = event => {
+
                 var data = JSON.parse(event.target.result);
+                // debugger;
                 var filename = $scope.files[index].name.replace(/\s|\.|json/g, "");
+
                 InvertedIndex.files[filename] = data;
                 InvertedIndex.createIndex(filename);
+                console.log($scope.files[index])
 
             };
-             if($scope.files[index].type === 'application/json') {
+             if(typeof parseInt(index) === 'number' && $scope.files[index].type === 'application/json') {
                  reader.readAsText($scope.files[index]);
              }
-        };
+        }
     };
 
     $scope.getIndex = () => {
         if($scope.selectedFile.length !== 0) {
-            $scope.fileIndex = InvertedIndex.getIndex($scope.selectedFile.replace(/\s|\.|json/g, ""));
+            let fileKey = $scope.selectedFile.replace(/\s|\.|json/g, "");
+            $scope.booksIndexed = InvertedIndex.files[fileKey];
+            $scope.fileIndex = InvertedIndex.getIndex(fileKey);
+        } else {
+            $scope.booksIndexed = [];
+            $scope.fileIndex = {"not found": "nothing was found"};
         }
-        console.log($scope.fileIndex);
+    };
+
+    $scope.searchIndex =() => {
+
     };
 });
 
@@ -40,5 +53,5 @@ invApp.directive('fileUpload', function() {
                 });
             });
         }
-    }
+    };
 });

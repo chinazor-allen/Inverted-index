@@ -7,6 +7,8 @@
     "browser-sync": "^2.18.6",
     "gulp": "^3.9.1",
     "gulp-sass": "^3.1.0",
+    "gulp-browserify": "^0.5.1",
+    "gulp-rename": "^1.2.2",
     "jshint": "^2.9.4"
   },
   "devDependencies": {
@@ -28,7 +30,9 @@
     "karma-phantomjs-launcher": "^1.0.2"
   },
   "scripts": {
-    "test": "./node_modules/.bin/karma start"
+    "start": "node node_modules/gulp/bin/gulp",
+    "test": "node_modules/karma/bin/karma start karma.config.js --single-run",
+"coveralls": "cat './coverage/Chrome 54.0.2840 (Mac OS X 10.11.6)/lcov.info' | ./node_modules/coveralls/bin/coveralls.js"
   },
   "repository": {
     "type": "git",

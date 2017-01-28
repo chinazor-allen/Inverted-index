@@ -1,7 +1,8 @@
-const book = require('../books');
-const empty = require('../empty');
+const book = require('./../books.json');
+const empty = require('./../empty.json');
 const Helpers = require('../../src/inverted-index-helper');
 const InvertedIndex = require('../../src/inverted-index');
+
 
 describe('Inverted Index', () => {
   const invertedIndex = new InvertedIndex();
@@ -42,5 +43,7 @@ describe('Inverted Index', () => {
     });
   });
 
-  describe('')
+  describe('', () => {
+
+  });
 });
