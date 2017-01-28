@@ -15,10 +15,10 @@
     "babel-preset-es2015": "^6.22.0",
     "coveralls": "^2.11.15",
     "gulp-babel": "^6.1.2",
+    "gulp-browserify": "^0.5.1",
     "gulp-cli": "^1.2.2",
     "gulp-jasmine-browser": "^1.7.1",
     "gulp-sass": "^3.1.0",
-    "webpack-stream": "^3.2.0",
     "istanbul": "^0.4.5",
     "jasmine-core": "^2.5.2",
     "jasmine-node": "*",
@@ -27,12 +27,14 @@
     "karma-coverage": "^1.1.1",
     "karma-coveralls": "^1.1.2",
     "karma-jasmine": "^1.0.2",
-    "karma-phantomjs-launcher": "^1.0.2"
+    "karma-phantomjs-launcher": "^1.0.2",
+    "karma-requirejs": "^1.1.0",
+    "webpack-stream": "^3.2.0"
   },
   "scripts": {
     "start": "node node_modules/gulp/bin/gulp",
-    "test": "node_modules/karma/bin/karma start karma.config.js --single-run",
-"coveralls": "cat './coverage/Chrome 54.0.2840 (Mac OS X 10.11.6)/lcov.info' | ./node_modules/coveralls/bin/coveralls.js"
+    "test": "node_modules/karma/bin/karma start --single-run",
+    "coveralls": "cat './coverage/Chrome 54.0.2840 (Mac OS X 10.11.6)/lcov.info' | ./node_modules/coveralls/bin/coveralls.js"
   },
   "repository": {
     "type": "git",

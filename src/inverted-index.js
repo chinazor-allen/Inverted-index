@@ -52,3 +52,5 @@ class invertedIndex {
     return searchResult;
   }
 }
+
+window.invertedIndex = invertedIndex;

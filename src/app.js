@@ -5,7 +5,7 @@ invApp.controller("invertedController",function($scope){
     $scope.selectedFile = "";
     $scope.files = {};
     $scope.filesUploaded = [];
-
+    $scope.search = false;
     $scope.uploadFile = () => {
 
         for(let index in $scope.files) {
@@ -33,6 +33,7 @@ invApp.controller("invertedController",function($scope){
     };
 
     $scope.getIndex = () => {
+        $scope.search = false;
         if($scope.selectedFile.length !== 0) {
             let fileKey = $scope.selectedFile.replace(/\s|\.|json/g, "");
             $scope.booksIndexed = InvertedIndex.files[fileKey];
@@ -44,7 +45,7 @@ invApp.controller("invertedController",function($scope){
     };
 
     $scope.searchIndex =(terms) => {
-        console.log($scope.terms);
+        $scope.search = true;
         if($scope.selectedFile.length > 0) {
             let fileKey = $scope.selectedFile.replace(/\s|\.|json/g, "");
             $scope.booksIndexed = InvertedIndex.files[fileKey];

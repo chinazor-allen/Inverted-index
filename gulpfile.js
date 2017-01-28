@@ -1,5 +1,6 @@
 const gulp = require ('gulp');
 const bs = require('browser-sync').create();
+const browserify = require('gulp-browserify');
 const jasmineBrowser = require('gulp-jasmine-browser');
 const webpack = require('webpack-stream');
 const babel = require('gulp-babel');
@@ -36,7 +37,18 @@ gulp.task('build', function() {
         .pipe(babel({
             presets: ['es2015']
         }))
+        .pipe(browserify())
         .pipe(gulp.dest('build'));
+});
+
+gulp.task('scripts', function() {
+    // Single entry point to browserify 
+    gulp.src('src/js/app.js')
+        .pipe(browserify({
+          insertGlobals : true,
+          debug : !gulp.env.production
+        }))
+        .pipe(gulp.dest('./build/js'))
 });
 
 gulp.task('scripts', () => {

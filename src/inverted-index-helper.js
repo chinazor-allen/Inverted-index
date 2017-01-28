@@ -20,3 +20,5 @@ class invertedIndexHelper {
     } 
   }
 }
+
+window.invertedIndexHelper = invertedIndexHelper;

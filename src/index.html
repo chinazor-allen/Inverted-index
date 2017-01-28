@@ -46,9 +46,9 @@
     <hr class="twelve columns">
     <div class="row" ng-if="fileIndex">
       <h1 ng-if="selectedFile">
-        <span ng-if="!terms.length > 0">Index For: </span>
-        <span ng-if="selectedFile.length !== 0">{{selectedFile}}</span>
-        <span ng-if="selectedFile.length === 0">All Files</span>
+        <span ng-if="!terms.length > 0 && !search">Index For: </span>
+        <span ng-if="selectedFile.length != 0">{{selectedFile}}</span>
+        <span ng-if="selectedFile.length == 0 && search">All Files</span>
       </h1>
       <div class="twelve columns">
         <table class="twelve columns">
