@@ -15,21 +15,21 @@ describe('Inverted Index', () => {
   const InvertedIndex = new invertedIndex();
   const helpers = new invertedIndexHelper();
   const emptyFile = [];
-  
+  const notJson = "books.js";
+  let fileName = "book.json";
 
   afterEach(() => {
     InvertedIndex.indexTable = {};
   });
 
-  let fileName =  InvertedIndex.files[filename].replace(/\.json/g, '').replace(/\s/g, '');
 
   it('should be truthy for the instance of the class', () => {
-    const indexInstance = InvertedIndex;
-    expect(indexInstance instanceof InvertedIndex).toBeTruthy();
+    // const indexInstance = new InvertedIndex();
+    expect(InvertedIndex instanceof invertedIndex).toBeTruthy();
   });
 
   it('should return zero for the length of the indexes', () => {
-    expect(Object.keys(InvertedIndex.indexTable).length).toBe(0);
+    expect(Object.keys(InvertedIndex.getIndex).length).toBe(0);
   });
 
   describe('Read Book Data', () => {
@@ -40,7 +40,7 @@ describe('Inverted Index', () => {
       expect(helpers.readBookData(book)).toBe(true);
     });
     it('returns false if the content of the file is not a valid JSON array', () => {
-      expect(helpers.readBookData(book)).toBe(false);
+      expect(helpers.readBookData(notJson)).toBe(false);
     });
     it('returns the content of the file when an index has been created', () => {
       const createIndex = InvertedIndex.createIndex(book);

@@ -17,7 +17,9 @@ class invertedIndexHelper {
       return false;
     } else if (!Array.isArray(file)) {
       return false;
-    } 
+    } else{
+      return true;
+    }
   }
 }
 
