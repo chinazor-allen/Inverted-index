@@ -1,6 +1,5 @@
 const gulp = require ('gulp');
 const bs = require('browser-sync').create();
-const sass = require('gulp-sass');
 const jasmineBrowser = require('gulp-jasmine-browser');
 const webpack = require('webpack-stream');
 const babel = require('gulp-babel');
@@ -45,13 +44,6 @@ gulp.task('scripts', () => {
         .pipe(browserify())
         .pipe(rename('bundle.js'))
         .pipe(gulp.dest('./jasmine'));
-});
-
-gulp.task('sass', () => {
-    return gulp.src('scss/*.scss')
-    .pipe(sass())
-    .pipe(gulp.dest('src/css/'))
-    .pipe(bs.reload({stream: true}));
 });
 
 //Default task(s).
