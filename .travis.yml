@@ -6,11 +6,6 @@ node_js:
   - "5.11"
   - "4.5"
   - "4.4"
-before_script:
-  - npm install -g gulp
- script: npm test
-
-
 before_install:
  - export CHROME_BIN=/usr/bin/google-chrome
  - export DISPLAY=:99.0
@@ -20,4 +15,5 @@ before_install:
  - wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
  - sudo dpkg -i google-chrome*.deb
 
- after_script: cat ./coverage/**/lcov.info | ./node_modules/.bin/coveralls
+after_script: cat ./coverage/**/lcov.info | ./node_modules/.bin/coveralls
+#  - npm install -g gulp
