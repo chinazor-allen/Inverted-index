@@ -15,9 +15,11 @@ module.exports = function (config) {
 
     // list of files / patterns to load in the browser
     files: [
-      './build/inverted-index-helper.js',
-      './build/inverted-index.js',
-      './jasmine/spec/inverted-index-test.js'
+      'src/inverted-index-helper.js',
+      'src/inverted-index.js',
+      // '../build/inverted-index-helper.js',
+      // '../build/inverted-index.js',
+      'jasmine/build/bundle.js'
     ],
 
 
@@ -29,14 +31,19 @@ module.exports = function (config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      './src/js/inverted-index.js': 'coverage',
-      './src/js/inverted-index-helper.js': 'coverage'
+      'src/js/inverted-index-helper.js': ['coverage'],
+      'src/js/inverted-index.js': ['coverage']
     },
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
     reporters: ["progress", "coverage", "coveralls"],
+
+    coverageReporter:{
+      type: 'lcov',
+      dir: 'coverage/'
+    },
 
 
     // web server port
@@ -52,12 +59,6 @@ module.exports = function (config) {
         flags: ["--no-sandbox"]
       }
     },
-
-    coverageReporter: {
-      type: "lcov",
-      dir: "coverage/"
-    },
-
 
     // level of logging
     // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
@@ -75,7 +76,7 @@ module.exports = function (config) {
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: true,
+    singleRun: false,
 
     // Concurrency level
     // how many browser should be started simultaneous

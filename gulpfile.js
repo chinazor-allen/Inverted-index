@@ -4,6 +4,11 @@ const browserify = require('gulp-browserify');
 const jasmineBrowser = require('gulp-jasmine-browser');
 const webpack = require('webpack-stream');
 const babel = require('gulp-babel');
+const rename = require('gulp-rename');
+const browserSync = require('browser-sync');
+
+const appSync = browserSync.create();
+const testSync = browserSync.create();
 
 
 
@@ -30,6 +35,7 @@ gulp.task('watch', ['browser-sync'], () => {
     'src/**/*.js', 
     'src/css/**/*.css'])
     .on('change', bs.reload);
+    gulp.watch(['jasmine/**/*', 'src/**/*.js'], testSync.reload);
 });
 
 gulp.task('build', function() {
@@ -40,6 +46,19 @@ gulp.task('build', function() {
         .pipe(browserify())
         .pipe(gulp.dest('build'));
 });
+
+ gulp.task('serveTest', () => {
+  testSync.init({
+    server: {
+      baseDir: ['./src', './jasmine'],
+      index: 'SpecRunner.html'
+    },
+    port: 8080,
+    ui: false,
+    ghostMode: false,
+    open: false
+  });
+}); 
 
 gulp.task('scripts', function() {
     // Single entry point to browserify 
@@ -55,7 +74,7 @@ gulp.task('scripts', () => {
     gulp.src('jasmine/spec/inverted-index-test.js')
         .pipe(browserify())
         .pipe(rename('bundle.js'))
-        .pipe(gulp.dest('./jasmine'));
+        .pipe(gulp.dest('jasmine/build'));
 });
 
 //Default task(s).
