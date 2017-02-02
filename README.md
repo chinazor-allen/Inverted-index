@@ -1,6 +1,8 @@
 # Inverted-index
 [![Build Status](https://travis-ci.org/Andela-callen/Inverted-index.svg?branch=master)](https://travis-ci.org/Andela-callen/Inverted-index)
 
+[![Coverage Status](https://coveralls.io/repos/github/Andela-callen/Inverted-index/badge.svg?branch=master)](https://coveralls.io/github/Andela-callen/Inverted-index?branch=master)
+
 # Inverted Index
 
 The Inverted index application allows a user to search for text blocks in the array that contain a specified collection of words.
