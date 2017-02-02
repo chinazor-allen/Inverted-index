@@ -39,8 +39,8 @@
   },
   "scripts": {
     "start": "node_modules/browser-sync/bin/browser-sync.js start --config bs-config.js",
-    "test": "node_modules/karma/bin/karma start karma.conf.js --single-run",
-    "coveralls": "cat './coverage/**/lcov.info' | ./node_modules/coveralls/bin/coveralls.js"
+    "test": "istanbul cover jasmine",
+    "coveralls": "cat './coverage/lcov.info' | ./node_modules/coveralls/bin/coveralls.js"
   },
   "repository": {
     "type": "git",
