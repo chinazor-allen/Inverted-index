@@ -1,7 +1,5 @@
 # Inverted-index
-[![Build Status](https://travis-ci.org/Andela-callen/Inverted-index.svg?branch=master)](https://travis-ci.org/Andela-callen/Inverted-index)
-
-[![Coverage Status](https://coveralls.io/repos/github/Andela-callen/Inverted-index/badge.svg?branch=master)](https://coveralls.io/github/Andela-callen/Inverted-index?branch=master)
+[![Build Status](https://travis-ci.org/Andela-callen/Inverted-index.svg?branch=master)](https://travis-ci.org/Andela-callen/Inverted-index) [![Coverage Status](https://coveralls.io/repos/github/Andela-callen/Inverted-index/badge.svg?branch=master)](https://coveralls.io/github/Andela-callen/Inverted-index?branch=master)
 
 # Inverted Index
 
