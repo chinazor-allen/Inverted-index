@@ -47,19 +47,14 @@ describe('Inverted Index', () => {
       expect(createIndex).toBeDefined();
     });
     it('returns false if the file has been uploaded before', () => {
-      const createIndex = InvertedIndex.createIndex(book);
-      const createIndex2 = InvertedIndex.createIndex(book);
-      expect(createIndex2).toBe(false);
+      const createIndex = InvertedIndex.createIndex('book');
+      expect(createIndex).toBe(false);
     });
   });
 
   describe('Populate Index', () => {
-    const InvertedIndex2 = new IndexKlass(InvertedIndexhelper);
-    InvertedIndex2.files.bk = {};
-    InvertedIndex2.files.bk.books = JSON.parse(book);
-    console.log(InvertedIndex2.getIndex('bk'));
     it('ensures that index is created', () => {
-      expect(InvertedIndex2.createIndex('bk')).toBe(false);
+      expect(InvertedIndex.createIndex('bk')).toBe(false);
     });
     // it('returns an array that contains the indexes of a word', () => {
     //   expect(typeof(InvertedIndex.createIndex(book)).toBe(typeof{}));
