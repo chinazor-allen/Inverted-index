@@ -13,15 +13,14 @@ class invertedIndex {
   createIndex(filename) {
     const index = {};
     const currentFile = filename ? this.files[filename] : this.files.allBooks;
-
+    // console.log(currentFile);
     if (currentFile) {
       currentFile.forEach((currentDoc, docIndex) => {
         const currentToken = this.invertedIndexHelper.getToken(`${currentDoc.title} ${currentDoc.text}`);
         currentToken.map((word) => {
           if (index[word]) {
             index[word].push(docIndex);
-          }        
-          else {
+          } else {
             index[word] = [docIndex];
           }
         });

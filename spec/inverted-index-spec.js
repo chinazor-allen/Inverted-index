@@ -3,27 +3,23 @@ const IndexKlass = require('./inverted-index');
 const fs = require('fs');
 const path = require('path');
 
-const InvertedIndex = new IndexKlass(InvertedIndexhelper);
-
 const book = fs.readFileSync(path.resolve(__dirname, 'books.json'));
 
 
-InvertedIndex.files['books.json'] = JSON.parse(book);
-
 describe('Inverted Index', () => {
   const helpers = new InvertedIndexhelper();
-  const Index = new IndexKlass(InvertedIndexhelper);
+  const InvertedIndex = new IndexKlass(InvertedIndexhelper);
   const file1 = book;
   const emptyFile = [];
   const notJson = 'books.js';
-
+  InvertedIndex.files.books = JSON.parse(book);
+  InvertedIndex.createIndex('books');
   afterEach(() => {
     InvertedIndex.indexTable = {};
   });
 
 
   it('should be truthy for the instance of the class', () => {
-    // const indexInstance = new InvertedIndex();
     expect(InvertedIndex instanceof IndexKlass).toBeTruthy();
   });
 
@@ -47,22 +43,32 @@ describe('Inverted Index', () => {
       expect(createIndex).toBeDefined();
     });
     it('returns false if the file has been uploaded before', () => {
-      const createIndex = InvertedIndex.createIndex(book);
-      const createIndex2 = InvertedIndex.createIndex(book);
-      expect(createIndex2).toBe(false);
+      const createIndex = InvertedIndex.createIndex('book');
+      expect(createIndex).toBe(false);
     });
   });
 
   describe('Populate Index', () => {
-    const InvertedIndex2 = new IndexKlass(InvertedIndexhelper);
-    InvertedIndex2.files.bk = {};
-    InvertedIndex2.files.bk.books = JSON.parse(book);
-    console.log(InvertedIndex2.getIndex('bk'));
     it('ensures that index is created', () => {
-      expect(InvertedIndex2.createIndex('bk')).toBe(false);
+      expect(InvertedIndex.createIndex('bk')).toBe(false);
     });
-    // it('returns an array that contains the indexes of a word', () => {
-    //   expect(typeof(InvertedIndex.createIndex(book)).toBe(typeof{}));
-    // });
+    it('returns an array that contains the indexes of a word', () => {
+      InvertedIndex.files.bk = JSON.parse(book);
+      InvertedIndex.createIndex('bk');
+      expect(InvertedIndex.getIndex('bk').alice).toEqual([0]);
+    });
+  });
+
+  describe('Search Index', () => {
+    it('should return correct index of searched term', () => {
+      InvertedIndex.files.bk = JSON.parse(book);
+      InvertedIndex.createIndex('bk');
+      expect(InvertedIndex.searchIndex('alice', 'bk')).toEqual({ alice: [0] });
+    });
+    it('should return false when no result is found', () => {
+      InvertedIndex.files.bk = JSON.parse(book);
+      InvertedIndex.createIndex('bk');
+      expect(InvertedIndex.searchIndex('magrain', 'bk')).toEqual({ magrain: [] });
+    });
   });
 });
