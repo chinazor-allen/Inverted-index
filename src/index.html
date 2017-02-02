@@ -1,0 +1,76 @@
+<html ng-app="invertedIndex">
+
+<head>
+  <title>Inverted Index</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Raleway:300" rel="stylesheet">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+    crossorigin="anonymous">
+  <style>
+    body {
+      font-family: Raleway, sans-serif;
+    }
+  </style>
+</head>
+
+<body ng-controller="invertedController">
+  <div class="container">
+    <h1>{{title}}</h1>
+    <hr>
+    <div class="twelve columns" style="color: #e6e6e6">
+      <input class="eight columns" type="search" placeholder="search...." ng-model="terms" />
+      <button type="button" class="button button-primary four columns" ng-click="searchIndex()">search</button>
+    </div>
+
+    <hr class="twelve columns">
+    <div class="twelve columns">
+      <div class="eight columns">
+        <form enctype="multipart/form-data">
+        <input type="file" id="uploadedFiles" class="six columns" file-upload multiple />
+        <div class="twelve columns">
+          <button type="button" class="button button-primary three columns" ng-click="uploadFile()">Upload</button>
+        </div>
+        </form>
+      </div>
+
+      <div class="four columns">
+        <div class="six columns">
+          <select name="selectedFile" ng-model="selectedFile" id="" class="twelve columns" ng-disabled="!files">
+            <option value="">All File</option>
+            <option ng-repeat="x in filesUploaded" value="{{x}}">{{x}}</option>
+            </select>
+        </div>
+        <button class="button six columns" ng-click="getIndex()" ng-disabled="!files">Create Index</button>
+      </div>
+    </div>
+    <hr class="twelve columns">
+    <div class="row" ng-if="fileIndex">
+      <h1 ng-if="selectedFile">
+        <span ng-if="!terms.length > 0 && !search">Index For: </span>
+        <span ng-if="selectedFile.length != 0">{{selectedFile}}</span>
+        <span ng-if="selectedFile.length == 0 && search">All Files</span>
+      </h1>
+      <div class="twelve columns">
+        <table class="twelve columns">
+          <thead>
+            <th style="text-align: center">Word</th>
+            <th style="text-align: center" ng-repeat="index in booksIndexed track by $index">{{index.title}}</th>
+          </thead>
+          <tr ng-repeat="(key, value) in fileIndex">
+           <td style="text-align: center">{{key}}</td>
+           <td ng-repeat="index in booksIndexed track by $index" style="text-align: center">
+             <i class="fa fa-check" ng-if="value.includes($index)"></i>
+             <i class="fa fa-close" ng-if="!value.includes($index)"></i></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+</div>
+
+<script src="/build/inverted-index-helper.js"></script>
+<script src="/build/inverted-index.js"></script>
+<script type="text/javascript" src="./bower_components/angular/angular.min.js"></script>
+<script type="text/javascript" src="app.js"></script>
+</body>
+
+</html>
