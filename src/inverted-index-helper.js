@@ -1,3 +1,8 @@
+/**
+ * createIndex function loops through a Json file, sort and removes duplicate
+ * @param {string}
+ * @returns {Array} indexTable, of splitted words in alphabetical order
+ */
 class invertedIndexHelper {
   static getToken(words) {
     const filterDuplicate = [];

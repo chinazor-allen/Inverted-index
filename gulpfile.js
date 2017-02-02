@@ -22,10 +22,6 @@ gulp.task('browser-sync', () => {
                 '/build' : "build"
             }
         },
-       /* proxy: {
-            target: "localhost:8080", // can be [virtual host, sub-directory, localhost with port]
-            ws: true, // enables websockets
-    }*/
     });
 });
 
