@@ -4,6 +4,10 @@ public/lib
 .DS_store
 c4h_keys.txt
 .env
+<<<<<<< HEAD
 bower_components
 coverage
 jasmine-old
+=======
+bower_components
+>>>>>>> b8e2429... pre heroku setup
