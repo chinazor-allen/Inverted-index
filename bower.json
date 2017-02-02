@@ -1,0 +1,24 @@
+{
+  "name": "invertedindex",
+  "description": "This is a secsription",
+  "main": "index.js",
+  "authors": [
+    "allen Chinazor"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "inverted",
+    "index"
+  ],
+  "homepage": "https://github.com/Andela-callen/Inverted-index",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.6.1"
+  }
+}
