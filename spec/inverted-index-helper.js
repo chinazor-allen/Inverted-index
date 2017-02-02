@@ -23,3 +23,4 @@ class invertedIndexHelper {
 }
 
 module.exports = invertedIndexHelper;
+

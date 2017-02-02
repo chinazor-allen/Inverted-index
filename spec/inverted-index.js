@@ -20,8 +20,7 @@ class invertedIndex {
         currentToken.map((word) => {
           if (index[word]) {
             index[word].push(docIndex);
-          }        
-          else {
+          } else {
             index[word] = [docIndex];
           }
         });
