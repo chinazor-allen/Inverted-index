@@ -15,11 +15,18 @@ module.exports = function (config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'src/inverted-index-helper.js',
-      'src/inverted-index.js',
+      'jasmine/src/inverted-index-helper.js',
+      'jasmine/src/inverted-index.js',
       // '../build/inverted-index-helper.js',
       // '../build/inverted-index.js',
       'jasmine/build/bundle.js'
+    ],
+
+    plugins:[
+      'karma-coverage',
+      'karma-coveralls',
+      'karma-jasmine',
+      'Karma-chrome-launcher'
     ],
 
 
@@ -31,8 +38,8 @@ module.exports = function (config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      'src/js/inverted-index-helper.js': ['coverage'],
-      'src/js/inverted-index.js': ['coverage']
+      'src/js/inverted-index.js': ['coverage'],
+      'src/js/inverted-index-helper.js': ['coverage']
     },
 
     // test results reporter to use
@@ -76,7 +83,7 @@ module.exports = function (config) {
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: false,
+    singleRun: true,
 
     // Concurrency level
     // how many browser should be started simultaneous

@@ -1,53 +1,40 @@
 {
+  "extends": "airbnb",
   "root": true,
-  "extends": "airbnb-base",
   "env": {
     "node": true,
     "es6": true,
     "mocha": true,
-    "jasmine": true
+    "jasmine": true,
+    "browser": true
   },
   "globals": {
-    "require": true
+      "amd": true
   },
-  "parserOptions": {
-        "ecmaVersion": 6,
-        "sourceType": "module",
-        "ecmaFeatures": {
-            "jsx": true
-        }
-    },
   "rules": {
-    "no-loop-func":0,
-    "no-throw-literal":0,
-    "guard-for-in":0,
-    "no-tabs":0,
-    "no-unused-expressions":0,
-    "require-jsdoc":0,
-    "prefer-const":0,
-    "quotes":0,
-    "no-restricted-syntax":0,
     "one-var": 0,
     "one-var-declaration-per-line": 0,
+    "no-unused-vars": [0, { "allow": ["invertedIndex", "InvertedIndex"] }],
     "new-cap": 0,
+    "no-unneeded-ternary":0,
+    "no-restricted-syntax":0,
     "consistent-return": 0,
+    "array-callback-return": 0,
     "no-param-reassign": 0,
-    "class-methods-use-this": 0,
-    "no-prototype-builtins": 0,
-    "arrow-body-style": ["error", "as-needed"],
     "comma-dangle": 0,
-    "no-undef": 0,
-    "dot-notation": 0,
-    "brace-style": 0,
-    "no-trailing-spaces": 0,
-    "no-plusplus": 0,
-    "curly": ["error", "multi-line"],
-    "no-shadow": 0,
-    "valid-jsdoc": ["error", {
+    "no-shadow": [0, { "allow": ["req", "res", "err"] }],
+    "valid-jsdoc": [0, {
       "requireReturn": true,
       "requireReturnType": true,
       "requireParamDescription": false,
       "requireReturnDescription": true
+    }],
+    "require-jsdoc": [0, {
+        "require": {
+            "FunctionDeclaration": true,
+            "MethodDefinition": true,
+            "ClassDeclaration": true
+        }
     }]
   }
 }

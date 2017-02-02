@@ -6,9 +6,10 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var invertedIndex = function () {
-  function invertedIndex() {
+  function invertedIndex(invertedIndexHelper) {
     _classCallCheck(this, invertedIndex);
 
+    this.invertedIndexHelper = invertedIndexHelper;
     this.files = {
       allBooks: []
     };
@@ -20,11 +21,13 @@ var invertedIndex = function () {
   _createClass(invertedIndex, [{
     key: 'createIndex',
     value: function createIndex(filename) {
+      var _this = this;
+
       var index = {};
       var currentFile = filename ? this.files[filename] : this.files.allBooks;
       if (currentFile) {
         currentFile.forEach(function (currentDoc, docIndex) {
-          var currentToken = invertedIndexHelper.getToken(currentDoc.title + ' ' + currentDoc.text);
+          var currentToken = _this.invertedIndexHelper.getToken(currentDoc.title + ' ' + currentDoc.text);
           currentToken.map(function (word) {
             if (index[word]) {
               index[word].push(docIndex);
@@ -47,7 +50,7 @@ var invertedIndex = function () {
     key: 'searchIndex',
     value: function searchIndex(terms, filename) {
       var searchResult = {};
-      var allSearchTerms = invertedIndexHelper.getToken(terms);
+      var allSearchTerms = this.invertedIndexHelper.getToken(terms);
 
       var fileIndex = this.indexTable[filename ? filename : 'allIndex'];
       var indexedTerms = Object.keys(fileIndex);
@@ -58,7 +61,6 @@ var invertedIndex = function () {
           searchResult[word] = [];
         }
       });
-      console.log(searchResult);
       return searchResult;
     }
   }]);

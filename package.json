@@ -40,7 +40,7 @@
   "scripts": {
     "start": "node node_modules/gulp/bin/gulp",
     "test": "node_modules/karma/bin/karma start karma.conf.js --single-run",
-    "coveralls": "cat './coverage/Chrome 54.0.2840 (Mac OS X 10.11.6)/lcov.info' | ./node_modules/coveralls/bin/coveralls.js"
+    "coveralls": "cat './coverage/**/lcov.info' | ./node_modules/coveralls/bin/coveralls.js"
   },
   "repository": {
     "type": "git",
