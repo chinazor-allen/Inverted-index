@@ -1,7 +1,7 @@
 const gulp = require ('gulp');
 const bs = require('browser-sync').create();
 const browserify = require('gulp-browserify');
-
+const jasmineBrowser = require('gulp-jasmine-browser');
 const webpack = require('webpack-stream');
 const babel = require('gulp-babel');
 const rename = require('gulp-rename');
