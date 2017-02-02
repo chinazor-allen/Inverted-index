@@ -11,7 +11,6 @@ class invertedIndex {
 
 
   createIndex(filename) {
-
     const index = {};
     const currentFile = filename ? this.files[filename] : this.files.allBooks;
 
