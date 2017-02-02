@@ -22,4 +22,4 @@ class invertedIndexHelper {
   }
 }
 
-window.invertedIndexHelper = invertedIndexHelper;
+module.exports = invertedIndexHelper;
