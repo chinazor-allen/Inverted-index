@@ -10,7 +10,7 @@ describe('Inverted Index', () => {
   const helpers = new InvertedIndexhelper();
   const InvertedIndex = new IndexKlass(InvertedIndexhelper);
   const file1 = book;
-  const emptyFile = [];
+  const file = InvertedIndex.files;
   const notJson = 'books.js';
   InvertedIndex.files.books = JSON.parse(book);
   InvertedIndex.createIndex('books');
@@ -28,22 +28,19 @@ describe('Inverted Index', () => {
   });
 
   describe('Read Book Data', () => {
-    it('return false if the content of the file is empty', () => {
-      expect(InvertedIndexhelper.readBookData(emptyFile)).toBe(false);
+    it('return false if the content of the file is not empty', () => {
+      expect(InvertedIndexhelper.readBookData(file)).toBe(false);
     });
     it('returns true if the content of the file is a valid JSON array', () => {
       const isValid = InvertedIndexhelper.readBookData(file1);
-      expect(InvertedIndexhelper.readBookData(isValid)).toBe(false);
+      expect(!isValid).toBe(true);
     });
     it('returns false if the content of the file is not a valid JSON array', () => {
-      expect(InvertedIndexhelper.readBookData(notJson)).toBe(false);
-    });
-    it('returns the content of the file when an index has been created', () => {
-      const createIndex = InvertedIndexhelper.readBookData(file1);
-      expect(createIndex).toBeDefined();
+      const isValid = InvertedIndexhelper.readBookData(file1);
+      expect(InvertedIndexhelper.readBookData(isValid)).toBe(false);
     });
     it('returns false if the file has been uploaded before', () => {
-      const createIndex = InvertedIndex.createIndex('book');
+      const createIndex = InvertedIndex.createIndex(book);
       expect(createIndex).toBe(false);
     });
   });

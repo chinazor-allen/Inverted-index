@@ -5,6 +5,11 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+/**
+ * createIndex function loops through a Json file, sort and removes duplicate
+ * @param {string}
+ * @returns {Array} indexTable, of splitted words in alphabetical order
+ */
 var invertedIndexHelper = function () {
   function invertedIndexHelper() {
     _classCallCheck(this, invertedIndexHelper);

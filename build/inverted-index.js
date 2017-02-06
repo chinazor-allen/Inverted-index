@@ -6,6 +6,10 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var invertedIndex = function () {
+  /**
+   * class constructor with invertedIndexHelper as 
+   * @constructor
+   */
   function invertedIndex(invertedIndexHelper) {
     _classCallCheck(this, invertedIndex);
 
@@ -17,6 +21,12 @@ var invertedIndex = function () {
       allIndex: {}
     };
   }
+
+  /**
+   * createIndex function takes in a filepath containing JSON file as parameter
+   * @param {string} filename, the name of the file to sort
+   * @returns {Array} indexTable, of splitted words in alphabetical order
+   */
 
   _createClass(invertedIndex, [{
     key: 'createIndex',
@@ -41,11 +51,25 @@ var invertedIndex = function () {
         return false;
       }
     }
+
+    /**
+     * function takes an indexed file as argument and return the value
+     * @param {string}
+     * @returns {object}
+     */
+
   }, {
     key: 'getIndex',
     value: function getIndex(filename) {
       return this.indexTable[filename];
     }
+
+    /**
+     * function takes in an array of arguments and returns an array of numbers represnting the index of words
+     * @param {string} terms
+     * @returns {array}
+     */
+
   }, {
     key: 'searchIndex',
     value: function searchIndex(terms, filename) {
