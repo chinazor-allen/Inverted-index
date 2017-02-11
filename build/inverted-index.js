@@ -30,11 +30,11 @@ var invertedIndex = function () {
 
   _createClass(invertedIndex, [{
     key: 'createIndex',
-    value: function createIndex(filename) {
+    value: function createIndex(filename, fileContent) {
       var _this = this;
 
       var index = {};
-      var currentFile = filename ? this.files[filename] : this.files.allBooks;
+      var currentFile = fileContent;
       if (currentFile) {
         currentFile.forEach(function (currentDoc, docIndex) {
           var currentToken = _this.invertedIndexHelper.getToken(currentDoc.title + ' ' + currentDoc.text);
@@ -46,7 +46,7 @@ var invertedIndex = function () {
             }
           });
         });
-        this.indexTable[filename ? filename : 'allIndex'] = index;
+        this.indexTable[filename] = index;
       } else {
         return false;
       }

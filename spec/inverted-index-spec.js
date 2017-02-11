@@ -12,7 +12,7 @@ describe('Inverted Index', () => {
   const file1 = book;
   const file = InvertedIndex.files;
   const notJson = 'books.js';
-  InvertedIndex.files.books = JSON.parse(book);
+  //InvertedIndex.files.books = JSON.parse(book);
   InvertedIndex.createIndex('books');
   afterEach(() => {
     InvertedIndex.indexTable = {};
@@ -24,12 +24,12 @@ describe('Inverted Index', () => {
   });
 
   it('should return zero for the length of the indexes', () => {
-    expect(Object.keys(InvertedIndex.getIndex).length).toBe(0);
+    expect(Object.keys(InvertedIndex.getIndex()).length).toBe(0);
   });
 
   describe('Read Book Data', () => {
     it('return false if the content of the file is not empty', () => {
-      expect(InvertedIndexhelper.readBookData(file)).toBe(false);
+      expect(InvertedInd(file)).toBe(false);
     });
     it('returns true if the content of the file is a valid JSON array', () => {
       const isValid = InvertedIndexhelper.readBookData(file1);

@@ -20,9 +20,9 @@ class invertedIndex {
  */
 
 
-  createIndex(filename) {
+  createIndex(filename, fileContent) {
     const index = {};
-    const currentFile = filename ? this.files[filename] : this.files.allBooks;
+    const currentFile = fileContent;
     if (currentFile) {
       currentFile.forEach((currentDoc, docIndex) => {
         const currentToken = this.invertedIndexHelper.getToken(`${currentDoc.title} ${currentDoc.text}`);
@@ -34,7 +34,7 @@ class invertedIndex {
           }
         });
       });
-      this.indexTable[filename ? filename : 'allIndex'] = index;
+      this.indexTable[filename] = index;
     } else {
       return false;
     }

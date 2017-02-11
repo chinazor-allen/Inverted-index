@@ -11,7 +11,7 @@ The link to the hosted application on heroku can be found [here](https://inverte
 
 #### How can I get started with the api?
 - To use the application locally, clone the repository, type ``` cd Inverted-index ``` in the command prompt and run ``` npm install ```. It will download all dependencies.
-- Run ``` gulp ``` on the command line to start the application.
+- Run ``` npm start ``` on the command line to start the application.
 - Create a JSON file with the following format. You can upload multiple files that follows the format below:
 ```
 [

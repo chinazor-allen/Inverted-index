@@ -28,14 +28,19 @@ var invertedIndexHelper = function () {
       return filterDuplicate;
     }
   }, {
-    key: 'readBookData',
-    value: function readBookData(file) {
-      if (file.length < 1) {
-        return false;
-      } else if (!Array.isArray(file)) {
-        return false;
+    key: 'isValidFile',
+    value: function isValidFile(file) {
+      var valid = true;
+      if (file.length !== 0) {
+        file.forEach(function (book) {
+          if (!(book.title && book.text)) {
+            valid = false;
+          }
+        });
+      } else {
+        valid = false;
       }
-      return true;
+      return valid;
     }
   }]);
 

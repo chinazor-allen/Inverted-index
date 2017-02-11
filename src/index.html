@@ -17,6 +17,15 @@
   <div class="container">
     <h1>{{title}}</h1>
     <hr>
+    <div class="row" ng-show="error" style="position: fixed; bottom: 10px; left: 2%; padding:20px; width: 330px; background-color:red">
+      <h3 class="twelve columns" style="color:white">Errors</h3>
+      <div class="two columns">&nbsp;</div>
+      <div class="eight columns">
+        <ul style="color: white">
+          <li ng-repeat="value in errors">{{value}}</li>
+        </ul>
+      </div>
+    </div>
     <div class="twelve columns" style="color: #e6e6e6">
       <input class="eight columns" type="search" placeholder="search...." ng-model="terms" />
       <button type="button" class="button button-primary four columns" ng-click="searchIndex()">search</button>
@@ -26,10 +35,11 @@
     <div class="twelve columns">
       <div class="eight columns">
         <form enctype="multipart/form-data">
-        <input type="file" id="uploadedFiles" class="six columns" file-upload multiple />
-        <div class="twelve columns">
-          <button type="button" class="button button-primary three columns" ng-click="uploadFile()">Upload</button>
-        </div>
+        <input type="file" id="uploadedFiles" class="six columns" file-upload multiple style = "padding-top: 10px" />
+        <button type="button" class="button button-primary three columns" ng-click="uploadFile()" style="margin-left: -20%">Upload</button>
+        <!--<div class="twelve columns">
+          
+        </div>-->
         </form>
       </div>
 
@@ -40,7 +50,7 @@
             <option ng-repeat="x in filesUploaded" value="{{x}}">{{x}}</option>
             </select>
         </div>
-        <button class="button six columns" ng-click="getIndex()" ng-disabled="!files">Create Index</button>
+        <button class="button button-primary six columns" ng-click="getIndex()" ng-disabled="!files" style="padding: 0">Create Index</button>
       </div>
     </div>
     <hr class="twelve columns">
