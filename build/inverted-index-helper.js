@@ -6,46 +6,71 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /**
- * createIndex function loops through a Json file, sort and removes duplicate
- * @param {string}
- * @returns {Array} indexTable, of splitted words in alphabetical order
+ * InvertedIndexHelper
+ * @class
+ * 
  */
-var invertedIndexHelper = function () {
-  function invertedIndexHelper() {
-    _classCallCheck(this, invertedIndexHelper);
+var InvertedIndexHelper = function () {
+  function InvertedIndexHelper() {
+    _classCallCheck(this, InvertedIndexHelper);
   }
 
-  _createClass(invertedIndexHelper, null, [{
+  _createClass(InvertedIndexHelper, null, [{
     key: 'getToken',
+
+
+    /**
+     *getToken()
+     *
+     * Method loops through a JSON file, sorts through string, removes all special characters and spaces
+     * and converts the result into an Array
+     * @param {string}
+     * @returns {Array} splitted words in alphabetical order 
+     */
+
     value: function getToken(words) {
       var filterDuplicate = [];
-      var formattedWords = words.toLowerCase().replace(/[^A-Z0-9\s]/gi, '').split(' ').sort();
+      var formattedWords = words.toString().toLowerCase().replace(/[^A-Z0-9\s+]/gi, ' ').replace(/\s+/, ' ').split(' ').sort();
       for (var x in formattedWords) {
-        if (filterDuplicate.indexOf(formattedWords[x]) === -1) {
+        if (filterDuplicate.indexOf(formattedWords[x]) === -1 && formattedWords[x] !== '') {
           filterDuplicate.push(formattedWords[x]);
         }
       }
       return filterDuplicate;
     }
+
+    /**
+     * isValidFile()
+     * 
+     * takes JSON object and checks if a file is empty or invalid and returns a string of message 
+     * @param {object} 
+     * @returns{string}
+     */
+
   }, {
     key: 'isValidFile',
     value: function isValidFile(file) {
       var valid = true;
-      if (file.length !== 0) {
-        file.forEach(function (book) {
-          if (!(book.title && book.text)) {
-            valid = false;
-          }
-        });
-      } else {
-        valid = false;
+      try {
+        file = JSON.parse(file);
+        if (file.length !== 0) {
+          file.forEach(function (book) {
+            if (!(book.title && book.text)) {
+              valid = false;
+            }
+          });
+        } else {
+          valid = false;
+        }
+      } catch (e) {
+        throw new Error("File invalid");
       }
-      return valid;
+      return valid ? file : valid;
     }
   }]);
 
-  return invertedIndexHelper;
+  return InvertedIndexHelper;
 }();
 
-window.invertedIndexHelper = invertedIndexHelper;
+window.InvertedIndexHelper = InvertedIndexHelper;
 },{}]},{},[1])

@@ -1,7 +1,7 @@
-var invApp = angular.module('invertedIndex',[]);
+var invApp = angular.module('InvertedIndex',[]);
 invApp.controller("invertedController",function($scope, $window){
-    let helper = $window.invertedIndexHelper;
-    let InvertedIndex = new invertedIndex(helper);
+    let helper = $window.InvertedIndexHelper;
+    let invertedIndex = new InvertedIndex(helper);
     $scope.title = "Inverted Index";
     $scope.selectedFile = "";
     $scope.files = {};
@@ -9,7 +9,7 @@ invApp.controller("invertedController",function($scope, $window){
     $scope.errors = ["Past Eight", "Leave Me"];
     $scope.error = false;
     $scope.search = false;
-
+    $scope.creating = false;
 
     $scope.uploadFile = () => {
         $scope.error = false;
@@ -20,20 +20,22 @@ invApp.controller("invertedController",function($scope, $window){
 
             reader.onload = (event) => {
 
-                var data = JSON.parse(event.target.result);
+                try {
+                var data = helper.isValidFile(event.target.result);
                 var filename = $scope.files[index].name.replace(/\s|\.|json/g, "");
-
-                if (helper.isValidFile(data)){
-                    InvertedIndex.files[filename] = data;
-                    InvertedIndex.createIndex(filename, data);
-                    if(!$scope.filesUploaded.includes($scope.files[index].name)) {
-                        $scope.filesUploaded.push($scope.files[index].name);
+                    if(data) {
+                        invertedIndex.files[filename] = data;
+                        if(!$scope.filesUploaded.includes($scope.files[index].name)) {
+                            $scope.$apply(() => {
+                                $scope.filesUploaded.push($scope.files[index].name);
+                            });
+                            swal(`uploaded successfully`);
+                        }
+                    } else {
+                        swal("Ooops!!!!");
                     }
-                } else {
-                    $scope.$apply(function() {
-                        $scope.error = true;
-                        $scope.errors.push(`${$scope.files[index].name} is not a valid file`);
-                    });
+                } catch(e) {
+                    swal(e.message);
                 }
             };
             
@@ -41,41 +43,40 @@ invApp.controller("invertedController",function($scope, $window){
                  reader.readAsText($scope.files[index]);
              }
         }
-  
-        setTimeout(function() {
-            $scope.$apply(function() {
-                $scope.error = false;
-                $scope.errors = [];
-            });
-        }, 5000);
-
     };
 
     $scope.getIndex = () => {
+        $scope.creating = true;
         $scope.search = false;
         if($scope.selectedFile.length !== 0) {
             let fileKey = $scope.selectedFile.replace(/\s|\.|json/g, "");
-            $scope.booksIndexed = InvertedIndex.files[fileKey];
-            $scope.fileIndex = InvertedIndex.getIndex(fileKey);
-            debugger;
-            console.log(fileKey);
+            $scope.booksIndexed = invertedIndex.files[fileKey];
+            invertedIndex.createIndex(fileKey, $scope.booksIndexed);
+            $scope.fileIndex = invertedIndex.getIndex(fileKey);
         } else {
             $scope.booksIndexed = [];
             $scope.fileIndex = {"not found": "nothing was found"};
+            swal("Choose a file to create index");
         }
     };
 
-    $scope.searchIndex =(terms) => {
-        $scope.search = true;
-        if($scope.selectedFile.length > 0) {
-            let fileKey = $scope.selectedFile.replace(/\s|\.|json/g, "");
-            $scope.booksIndexed = InvertedIndex.files[fileKey];
-            $scope.fileIndex = InvertedIndex.searchIndex($scope.terms, fileKey);
-        } else {
-            $scope.booksIndexed = InvertedIndex.files.allBooks;
-            $scope.fileIndex = InvertedIndex.searchIndex($scope.terms);
-        }
+    $scope.searchIndex =() => {
 
+            if($scope.terms && $scope.terms.length > 0) {
+                $scope.creating = false;
+                $scope.search = true;
+                if($scope.selectedFile.length > 0) {
+                    let fileKey = $scope.selectedFile.replace(/\s|\.|json/g, "");
+                    $scope.booksIndexed = invertedIndex.files;
+                    $scope.fileIndex = invertedIndex.searchIndex($scope.terms, fileKey);
+                    
+                } else {
+                    $scope.booksIndexed = invertedIndex.files;
+                    $scope.fileIndex = invertedIndex.searchIndex($scope.terms);
+                }
+            } else {
+                swal("Search terms empty");
+            }
     };
 });
 

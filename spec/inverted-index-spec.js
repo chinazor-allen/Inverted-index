@@ -1,43 +1,46 @@
 const InvertedIndexhelper = require('./inverted-index-helper');
-const IndexKlass = require('./inverted-index');
+const IndexClass = require('./inverted-index');
+const empty = require('../spec/empty.json');
+const invalidFile = require('../spec/invalid.json');
 const fs = require('fs');
 const path = require('path');
 
 const book = fs.readFileSync(path.resolve(__dirname, 'books.json'));
 
-
 describe('Inverted Index', () => {
   const helpers = new InvertedIndexhelper();
-  const InvertedIndex = new IndexKlass(InvertedIndexhelper);
+  const InvertedIndex = new IndexClass(InvertedIndexhelper);
   const file1 = book;
+  const file2 = empty;
+  const file3 = invalidFile;
   const file = InvertedIndex.files;
-  const notJson = 'books.js';
-  //InvertedIndex.files.books = JSON.parse(book);
-  InvertedIndex.createIndex('books');
+
   afterEach(() => {
     InvertedIndex.indexTable = {};
   });
 
 
   it('should be truthy for the instance of the class', () => {
-    expect(InvertedIndex instanceof IndexKlass).toBeTruthy();
+    const indexInstance = InvertedIndex;
+    expect(InvertedIndex instanceof IndexClass).toBeTruthy();
   });
 
   it('should return zero for the length of the indexes', () => {
-    expect(Object.keys(InvertedIndex.getIndex()).length).toBe(0);
+    const indexInstance = InvertedIndex;
+    expect(Object.keys(InvertedIndex.indexTable).length).toBe(0);
   });
 
   describe('Read Book Data', () => {
-    it('return false if the content of the file is not empty', () => {
-      expect(InvertedInd(file)).toBe(false);
+    const notEmpty = file2;
+    it('throws error if file is empty', () => {
+      expect(() => InvertedIndexhelper.isValidFile(file2)).toThrow(new Error("File invalid"));
     });
     it('returns true if the content of the file is a valid JSON array', () => {
-      const isValid = InvertedIndexhelper.readBookData(file1);
-      expect(!isValid).toBe(true);
+      const isValid = InvertedIndexhelper.isValidFile(file1);
+      expect(isValid.length).not.toEqual(0);
     });
     it('returns false if the content of the file is not a valid JSON array', () => {
-      const isValid = InvertedIndexhelper.readBookData(file1);
-      expect(InvertedIndexhelper.readBookData(isValid)).toBe(false);
+      expect(() => InvertedIndexhelper.isValidFile(file3)).toThrow(new Error("File invalid"));
     });
     it('returns false if the file has been uploaded before', () => {
       const createIndex = InvertedIndex.createIndex(book);
@@ -50,22 +53,33 @@ describe('Inverted Index', () => {
       expect(InvertedIndex.createIndex('bk')).toBe(false);
     });
     it('returns an array that contains the indexes of a word', () => {
-      InvertedIndex.files.bk = JSON.parse(book);
-      InvertedIndex.createIndex('bk');
+      const validBook = InvertedIndexhelper.isValidFile(book);
+      InvertedIndex.files.bk = validBook;
+      InvertedIndex.createIndex('bk', validBook);
       expect(InvertedIndex.getIndex('bk').alice).toEqual([0]);
     });
   });
 
   describe('Search Index', () => {
     it('should return correct index of searched term', () => {
-      InvertedIndex.files.bk = JSON.parse(book);
-      InvertedIndex.createIndex('bk');
-      expect(InvertedIndex.searchIndex('alice', 'bk')).toEqual({ alice: [0] });
+      const validBook = InvertedIndexhelper.isValidFile(book);
+      InvertedIndex.files.bk = validBook;
+      InvertedIndex.createIndex('bk', validBook);
+      expect(InvertedIndex.searchIndex('alice', 'bk')).toEqual({bk: { alice: [0] }});
     });
     it('should return false when no result is found', () => {
-      InvertedIndex.files.bk = JSON.parse(book);
-      InvertedIndex.createIndex('bk');
-      expect(InvertedIndex.searchIndex('magrain', 'bk')).toEqual({ magrain: [] });
+      const validBook = InvertedIndexhelper.isValidFile(book);
+      InvertedIndex.files.bk = validBook;
+      InvertedIndex.createIndex('bk', validBook);
+      expect(InvertedIndex.searchIndex('magrain', 'bk')).toEqual({bk: { magrain: [] }});
+    });
+    it('Should ensure searchIndex can handle an array of search terms.', () => {
+      const validBook = InvertedIndexhelper.isValidFile(book);
+      InvertedIndex.files.bk = validBook;
+      InvertedIndex.createIndex('bk', validBook);
+      const arrayResult = InvertedIndex.searchIndex([['books.json'], ['unusual', 'alice']]);
+      expect(arrayResult.bk.unusual).toEqual([1]);
+      expect(arrayResult.bk.alice).toEqual([0]);
     });
   });
 });

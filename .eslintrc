@@ -14,7 +14,7 @@
   "rules": {
     "one-var": 0,
     "one-var-declaration-per-line": 0,
-    "no-unused-vars": [0, { "allow": ["invertedIndex", "InvertedIndex"] }],
+    //"no-unused-vars": [0, { "allow": ["invertedIndex", "InvertedIndex"] }],
     "new-cap": 0,
     "no-unneeded-ternary":0,
     "no-restricted-syntax":0,

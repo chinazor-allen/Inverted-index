@@ -1,26 +1,29 @@
-class invertedIndex {
+/**
+ *  InvertedIndex
+ * @class
+ */
+
+
+class InvertedIndex {
   /**
    * class constructor with invertedIndexHelper as 
    * @constructor
    */
-  constructor(invertedIndexHelper) {
-    this.invertedIndexHelper = invertedIndexHelper;
-    this.files = {
-      allBooks: []
-    };
-    this.indexTable = {
-      allIndex: {}
-    };
+  constructor(InvertedIndexHelper) {
+    this.invertedIndexHelper = InvertedIndexHelper;
+    this.files = {};
+    this.indexTable = {};
   }
 
 /**
- * createIndex function takes in a filepath containing JSON file as parameter
- * @param {string} filename, the name of the file to sort
- * @returns {Array} indexTable, of splitted words in alphabetical order
+ * createIndex function takes in a filename containing JSON file (fileContent) as parameter
+ * @param {string} filename, the name of the file for which index would be created
+ * @param {object} fileContent, JSON file
+ * @returns {Array} indexTable, of splitted words, sorted in alphabetical order
  */
 
 
-  createIndex(filename, fileContent) {
+  createIndex(filename, fileContent) { 
     const index = {};
     const currentFile = fileContent;
     if (currentFile) {
@@ -51,25 +54,31 @@ class invertedIndex {
 
 /**
  * function takes in an array of arguments and returns an array of numbers represnting the index of words
- * @param {string} terms
+ * @param {string} -terms
+ * @param {string} -filename
  * @returns {array}
  */
 
   searchIndex(terms, filename) {
     const searchResult = {};
     const allSearchTerms = this.invertedIndexHelper.getToken(terms);
-
-    const fileIndex = this.indexTable[filename ? filename : 'allIndex'];
-    const indexedTerms = Object.keys(fileIndex);
-    allSearchTerms.forEach((word) => {
-      if (indexedTerms.includes(word)) {
-        searchResult[word] = fileIndex[word];
-      } else {
-        searchResult[word] = [];
-      }
-    });
+    console.log(allSearchTerms);
+    const filenames = filename ? [filename] : Object.keys(this.indexTable);
+    filenames.forEach((filename) => {
+      const fileIndex = this.indexTable[filename];
+      const indexedTerms = Object.keys(fileIndex);
+      searchResult[filename] = {};
+      allSearchTerms.forEach((word) => {
+        if (indexedTerms.includes(word)) {
+          searchResult[filename][word] = fileIndex[word];
+        } else { 
+          searchResult[filename][word] = [];
+        }
+      });
+    })
     return searchResult;
   }
 }
 
-window.invertedIndex = invertedIndex;
+
+window.InvertedIndex = InvertedIndex;

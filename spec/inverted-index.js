@@ -1,10 +1,10 @@
-class invertedIndex {
+class InvertedIndex {
   /**
    * class constructor with invertedIndexHelper as 
    * @constructor
    */
-  constructor(invertedIndexHelper) {
-    this.invertedIndexHelper = invertedIndexHelper;
+  constructor(InvertedIndexHelper) {
+    this.invertedIndexHelper = InvertedIndexHelper;
     this.files = {
       allBooks: []
     };
@@ -58,18 +58,22 @@ class invertedIndex {
   searchIndex(terms, filename) {
     const searchResult = {};
     const allSearchTerms = this.invertedIndexHelper.getToken(terms);
-
-    const fileIndex = this.indexTable[filename ? filename : 'allIndex'];
-    const indexedTerms = Object.keys(fileIndex);
-    allSearchTerms.forEach((word) => {
-      if (indexedTerms.includes(word)) {
-        searchResult[word] = fileIndex[word];
-      } else {
-        searchResult[word] = [];
-      }
-    });
+    const filenames = filename ? [filename] : Object.keys(this.indexTable);
+    filenames.forEach((filename) => {
+      const fileIndex = this.indexTable[filename];
+      const indexedTerms = Object.keys(fileIndex);
+      searchResult[filename] = {};
+      allSearchTerms.forEach((word) => {
+        if (indexedTerms.includes(word)) {
+          searchResult[filename][word] = fileIndex[word];
+        } else { 
+          searchResult[filename][word] = [];
+        }
+      });
+    })
     return searchResult;
   }
 }
 
-module.exports = invertedIndex;
+
+module.exports = InvertedIndex;
