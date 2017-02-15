@@ -2,6 +2,7 @@
 
 <head>
   <title>Inverted Index</title>
+  <link rel="stylesheet" href="./css/styles.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
   <link href="https://fonts.googleapis.com/css?family=Raleway:300" rel="stylesheet">
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
@@ -20,9 +21,7 @@
     <h1>{{title}}</h1>
     <hr>
     <div class = "row" style="font-size:15px">
-      <p>Elasticsearch uses a structure called an inverted index, 
-        which is designed to allow very fast full-text searches. 
-        An inverted index consists of a list of all the unique words that appear in any document, and for each word, 
+      <p>An inverted index consists of a list of all the unique words that appear in any document, and for each word, 
         a list of the documents in which it appears.
       </p>
       <h4>How to use</h4>
@@ -33,15 +32,6 @@
       </ul>
     </div>
     <hr>
-    <div class="row" ng-show="error" style="position: fixed; bottom: 10px; left: 2%; padding:20px; width: 330px; background-color:red">
-      <h3 class="twelve columns" style="color:white">Errors</h3>
-      <div class="two columns">&nbsp;</div>
-      <div class="eight columns">
-        <ul style="color: white">
-          <li ng-repeat="value in errors">{{value}}</li>
-        </ul>
-      </div>
-    </div>
     <div class="twelve columns" style="color: #e6e6e6">
       <input class="eight columns" type="search" placeholder="search...." ng-model="terms" />
       <button type="button" class="button button-primary four columns" ng-click="searchIndex()">search</button>
@@ -68,6 +58,8 @@
         </div>
         <button class="button button-primary six columns" ng-click="getIndex()" ng-disabled="!files" style="padding: 0">Create Index</button>
       </div>
+      <div class = "row"> <ul>
+        <li style = "float: left; padding-left: 40px" ng-repeat="x in filesUploaded" value = "{{x}}">{{x}}</li></ul></div>
     </div>
     <hr class="twelve columns">
     <div class="row" ng-if="fileIndex">
@@ -76,8 +68,8 @@
         <span ng-if="selectedFile.length != 0">{{selectedFile}}</span>
         <span ng-if="selectedFile.length == 0 && search">All Files</span>
       </h1>
-      <div class="twelve columns" ng-if="creating">
-        <table class="twelve columns" overflow-y:scroll>
+      <div class="twelve columns" ng-if="creating" style="height:600px; overflow:auto">
+        <table class="twelve columns" >
           <thead>
             <th style="text-align: center">Word</th>
             <th style="text-align: center" ng-repeat="index in booksIndexed track by $index">{{index.title}}</th>
@@ -90,7 +82,7 @@
           </tr>
         </table>
       </div>
-      <div class="twelve columns" ng-if="search">
+      <div class="twelve columns" ng-if="search" style="height:600px; overflow:auto">
         <table class="twelve columns" ng-repeat="(filename, file_index) in fileIndex">
           <caption><h2>{{filename}}.json</h2></caption>
           <thead>
