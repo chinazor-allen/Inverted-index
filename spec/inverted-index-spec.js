@@ -36,7 +36,7 @@ describe('Inverted Index', () => {
     });
     it('returns an array if the content of the file is a valid JSON array', () => {
       const file = InvertedIndexhelper.isValidFile(file1);
-      expect(isValid.length).not.toEqual(0);
+      expect(file.length).not.toEqual(0);
     });
     it('returns false if the content of the file is not a valid JSON array', () => {
       expect(() => InvertedIndexhelper.isValidFile(file3)).toThrow(new Error("File invalid"));
