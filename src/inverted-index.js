@@ -18,8 +18,8 @@ class InvertedIndex {
 /**
  * createIndex function takes in a filename containing JSON file (fileContent) as parameter
  * @param {string} filename, the name of the file for which index would be created
- * @param {object} fileContent, JSON file
- * @returns {Array} indexTable, of splitted words, sorted in alphabetical order
+ * @param {Array} fileContent, JSON file
+ * @returns {Boolean} false
  */
 
 
@@ -62,7 +62,6 @@ class InvertedIndex {
   searchIndex(terms, filename) {
     const searchResult = {};
     const allSearchTerms = this.invertedIndexHelper.getToken(terms);
-    console.log(allSearchTerms);
     const filenames = filename ? [filename] : Object.keys(this.indexTable);
     filenames.forEach((filename) => {
       const fileIndex = this.indexTable[filename];
