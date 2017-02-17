@@ -32,7 +32,7 @@ invApp.controller("invertedController",function($scope, $window){
                             swal(`uploaded successfully`);
                         }
                     } else {
-                        swal("Ooops!!!!");
+                        swal("Ooops!!!! \n Enter a valid Json file");
                     }
                 } catch(e) {
                     swal(e.message);

@@ -73,6 +73,17 @@ describe('Inverted Index', () => {
       InvertedIndex.createIndex('bk', validBook);
       expect(InvertedIndex.searchIndex('magrain', 'bk')).toEqual({bk: { magrain: [] }});
     });
+
+    it(`should return search result for a varied number of search terms`, () => {
+      const validBook = InvertedIndexhelper.isValidFile(book);
+      InvertedIndex.files.bk = validBook;
+      InvertedIndex.createIndex('bk', validBook);
+      const variedNumber = InvertedIndex.searchIndex(['alice ring']);
+      expect(variedNumber.bk.alice).toEqual([0])
+      expect(variedNumber.bk.ring).toEqual([1]);
+      });
+    });
+
     it('Should ensure searchIndex can handle an array of search terms.', () => {
       const validBook = InvertedIndexhelper.isValidFile(book);
       InvertedIndex.files.bk = validBook;
@@ -82,4 +93,4 @@ describe('Inverted Index', () => {
       expect(arrayResult.bk.alice).toEqual([0]);
     });
   });
-});
+
