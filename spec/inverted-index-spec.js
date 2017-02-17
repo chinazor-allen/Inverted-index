@@ -48,7 +48,7 @@ describe('Inverted Index', () => {
   });
 
   describe('Populate Index', () => {
-    it('ensures that index is created', () => {
+    it('returns false if file content is not passed', () => {
       expect(InvertedIndex.createIndex('bk')).toBe(false);
     });
     it('returns an array that contains the indexes of a word', () => {
