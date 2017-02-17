@@ -8,7 +8,6 @@ const path = require('path');
 const book = fs.readFileSync(path.resolve(__dirname, 'books.json'));
 
 describe('Inverted Index', () => {
-  const helpers = new InvertedIndexhelper();
   const InvertedIndex = new IndexClass(InvertedIndexhelper);
   const file1 = book;
   const file2 = empty;
@@ -35,8 +34,8 @@ describe('Inverted Index', () => {
     it('throws error if file is empty', () => {
       expect(() => InvertedIndexhelper.isValidFile(file2)).toThrow(new Error("File invalid"));
     });
-    it('returns true if the content of the file is a valid JSON array', () => {
-      const isValid = InvertedIndexhelper.isValidFile(file1);
+    it('returns an array if the content of the file is a valid JSON array', () => {
+      const file = InvertedIndexhelper.isValidFile(file1);
       expect(isValid.length).not.toEqual(0);
     });
     it('returns false if the content of the file is not a valid JSON array', () => {
