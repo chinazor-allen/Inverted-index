@@ -2,8 +2,6 @@
  *  InvertedIndex
  * @class
  */
-
-
 class InvertedIndex {
   /**
    * class constructor with invertedIndexHelper as 
@@ -21,13 +19,10 @@ class InvertedIndex {
  * @param {Array} fileContent, JSON file
  * @returns {Boolean} false
  */
-
-
-  createIndex(filename, fileContent) { 
+  createIndex(filename, fileContent) {
     const index = {};
-    const currentFile = fileContent;
-    if (currentFile) {
-      currentFile.forEach((currentDoc, docIndex) => {
+    if (fileContent) {
+      fileContent.forEach((currentDoc, docIndex) => {
         const currentToken = this.invertedIndexHelper.getToken(`${currentDoc.title} ${currentDoc.text}`);
         currentToken.map((word) => {
           if (index[word]) {
@@ -49,7 +44,12 @@ class InvertedIndex {
  * @returns {object}
  */
   getIndex(filename) {
-    return this.indexTable[filename];
+    if(!filename) {
+      return this.indexTable;
+    }
+    const result = {};
+    result[filename] = this.indexTable[filename];
+    return result;
   }
 
 /**
@@ -58,8 +58,7 @@ class InvertedIndex {
  * @param {string} -filename
  * @returns {array}
  */
-
-  searchIndex(terms, filename) {
+  searchIndex(filename, terms) {
     const searchResult = {};
     const allSearchTerms = this.invertedIndexHelper.getToken(terms);
     const filenames = filename ? [filename] : Object.keys(this.indexTable);
@@ -78,6 +77,5 @@ class InvertedIndex {
     return searchResult;
   }
 }
-
 
 window.InvertedIndex = InvertedIndex;

@@ -9,7 +9,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
  *  InvertedIndex
  * @class
  */
-
 var InvertedIndex = function () {
   /**
    * class constructor with invertedIndexHelper as 
@@ -30,15 +29,15 @@ var InvertedIndex = function () {
    * @returns {Boolean} false
    */
 
+
   _createClass(InvertedIndex, [{
     key: "createIndex",
     value: function createIndex(filename, fileContent) {
       var _this = this;
 
       var index = {};
-      var currentFile = fileContent;
-      if (currentFile) {
-        currentFile.forEach(function (currentDoc, docIndex) {
+      if (fileContent) {
+        fileContent.forEach(function (currentDoc, docIndex) {
           var currentToken = _this.invertedIndexHelper.getToken(currentDoc.title + " " + currentDoc.text);
           currentToken.map(function (word) {
             if (index[word]) {
@@ -63,7 +62,12 @@ var InvertedIndex = function () {
   }, {
     key: "getIndex",
     value: function getIndex(filename) {
-      return this.indexTable[filename];
+      if (!filename) {
+        return this.indexTable;
+      }
+      var result = {};
+      result[filename] = this.indexTable[filename];
+      return result;
     }
 
     /**
@@ -75,7 +79,7 @@ var InvertedIndex = function () {
 
   }, {
     key: "searchIndex",
-    value: function searchIndex(terms, filename) {
+    value: function searchIndex(filename, terms) {
       var _this2 = this;
 
       var searchResult = {};

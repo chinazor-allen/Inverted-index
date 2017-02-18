@@ -1,3 +1,7 @@
+/**
+ *  InvertedIndex
+ * @class
+ */
 class InvertedIndex {
   /**
    * class constructor with invertedIndexHelper as 
@@ -5,26 +9,20 @@ class InvertedIndex {
    */
   constructor(InvertedIndexHelper) {
     this.invertedIndexHelper = InvertedIndexHelper;
-    this.files = {
-      allBooks: []
-    };
-    this.indexTable = {
-      allIndex: {}
-    };
+    this.files = {};
+    this.indexTable = {};
   }
 
 /**
- * createIndex function takes in a filepath containing JSON file as parameter
- * @param {string} filename, the name of the file to sort
- * @returns {Array} indexTable, of splitted words in alphabetical order
+ * createIndex function takes in a filename containing JSON file (fileContent) as parameter
+ * @param {string} filename, the name of the file for which index would be created
+ * @param {Array} fileContent, JSON file
+ * @returns {Boolean} false
  */
-
-
   createIndex(filename, fileContent) {
     const index = {};
-    const currentFile = fileContent;
-    if (currentFile) {
-      currentFile.forEach((currentDoc, docIndex) => {
+    if (fileContent) {
+      fileContent.forEach((currentDoc, docIndex) => {
         const currentToken = this.invertedIndexHelper.getToken(`${currentDoc.title} ${currentDoc.text}`);
         currentToken.map((word) => {
           if (index[word]) {
@@ -46,16 +44,21 @@ class InvertedIndex {
  * @returns {object}
  */
   getIndex(filename) {
-    return this.indexTable[filename];
+    if(!filename) {
+      return this.indexTable;
+    }
+    const result = {};
+    result[filename] = this.indexTable[filename];
+    return result;
   }
 
 /**
  * function takes in an array of arguments and returns an array of numbers represnting the index of words
- * @param {string} terms
+ * @param {string} -terms
+ * @param {string} -filename
  * @returns {array}
  */
-
-  searchIndex(terms, filename) {
+  searchIndex(filename, terms) {
     const searchResult = {};
     const allSearchTerms = this.invertedIndexHelper.getToken(terms);
     const filenames = filename ? [filename] : Object.keys(this.indexTable);
@@ -74,6 +77,5 @@ class InvertedIndex {
     return searchResult;
   }
 }
-
 
 module.exports = InvertedIndex;
