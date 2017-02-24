@@ -14,9 +14,9 @@ class InvertedIndexHelper {
     const filterDuplicate = [];
     const formattedWords = words.toString().toLowerCase()
       .replace(/[^A-Z0-9\s+]/gi, ' ').replace(/\s+/, ' ')
-      .split(' ').sort();
+      .split(' ');
     formattedWords.forEach((word) => {
-      if (filterDuplicate.indexOf(word) === -1 && word !== '') {
+      if (!filterDuplicate.includes(word) && word !== '') {
         filterDuplicate.push(word);
       }
     });

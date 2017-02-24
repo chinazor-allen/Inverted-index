@@ -1,7 +1,7 @@
-var invApp = angular.module('InvertedIndex', []);
+const invApp = angular.module('InvertedIndex', []);
 invApp.controller("invertedController", function ($scope, $window) {
-    let helper = $window.InvertedIndexHelper;
-    let invertedIndex = new InvertedIndex(helper);
+    const helper = $window.InvertedIndexHelper;
+    const invertedIndex = new InvertedIndex(helper);
     $scope.title = "Inverted Index";
     $scope.selectedFile = "";
     $scope.files = {};

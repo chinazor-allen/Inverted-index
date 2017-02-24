@@ -1,5 +1,6 @@
 const InvertedIndexhelper = require('./inverted-index-helper');
 const IndexClass = require('./inverted-index');
+console.log(IndexClass);
 const empty = require('../spec/empty');
 const invalidFile = require('../spec/invalid.json');
 const fs = require('fs');
@@ -9,35 +10,30 @@ const book = fs.readFileSync(path.resolve(__dirname, 'books.json'));
 
 describe('Inverted Index', () => {
   const InvertedIndex = new IndexClass(InvertedIndexhelper);
-  const file1 = book;
-  const file2 = empty;
-  const file3 = invalidFile;
-
-  afterEach(() => {
-    InvertedIndex.indexTable = {};
-  });
+  const validJSON = book;
+  const emptyJSON = empty;
+  const invalidJSON = invalidFile;
+  const indexInstance = InvertedIndex;
   
   it('should be truthy for the instance of the class', () => {
-    const indexInstance = InvertedIndex;
     expect(InvertedIndex instanceof IndexClass).toBeTruthy();
   });
   it('should return zero for the length of the indexes', () => {
-    const indexInstance = InvertedIndex;
-    expect(Object.keys(InvertedIndex.indexTable).length).toBe(0);
+    expect(Object.keys(InvertedIndex.getIndex()).length).toBe(0);
   });
 
   describe('Read Book Data', () => {
-    const notEmpty = file2;
+    const notEmpty = emptyJSON;
     it('throws error if file is empty', () => {
-      expect(() => InvertedIndexhelper.isValidFile(file2)).toThrow(new Error("File invalid"));
+      expect(() => InvertedIndexhelper.isValidFile(emptyJSON)).toThrow(new Error("File invalid"));
     });
-    // should return boolean - test for empty array
+
     it('returns an array if the content of the file is a valid JSON array', () => {
-      const file = InvertedIndexhelper.isValidFile(file1);
+      const file = InvertedIndexhelper.isValidFile(validJSON);
       expect(file).toBeTruthy();
     });
     it('returns false if the content of the file is not a valid JSON array', () => {
-      expect(() => InvertedIndexhelper.isValidFile(file3)).toThrow(new Error("File invalid"));
+      expect(() => InvertedIndexhelper.isValidFile(invalidJSON)).toThrow(new Error("File invalid"));
     });
     it('does not overwrite previously created indices', () => {
       const validBook = JSON.parse(book);
@@ -49,8 +45,7 @@ describe('Inverted Index', () => {
 
   describe('Populate Index', () => {
     it('returns false if file content is not passed', () => {
-      const fileContent = null;
-      expect(InvertedIndex.createIndex('bk', fileContent)).toBe(false);
+      expect(InvertedIndex.createIndex('bk', '')).toBe(false);
     });
     it('returns an array that contains the indexes of a word', () => {
       const validBook = JSON.parse(book);
