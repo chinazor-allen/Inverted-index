@@ -26,9 +26,9 @@ var InvertedIndexHelper = function () {
      */
     value: function getToken(words) {
       var filterDuplicate = [];
-      var formattedWords = words.toString().toLowerCase().replace(/[^A-Z0-9\s+]/gi, ' ').replace(/\s+/, ' ').split(' ').sort();
+      var formattedWords = words.toString().toLowerCase().replace(/[^A-Z0-9\s+]/gi, ' ').replace(/\s+/, ' ').split(' ');
       formattedWords.forEach(function (word) {
-        if (filterDuplicate.indexOf(word) === -1 && word !== '') {
+        if (!filterDuplicate.includes(word) && word !== '') {
           filterDuplicate.push(word);
         }
       });
@@ -70,5 +70,9 @@ var InvertedIndexHelper = function () {
   return InvertedIndexHelper;
 }();
 
-window.InvertedIndexHelper = InvertedIndexHelper;
+if (typeof window !== 'undefined') {
+  window = window.InvertedIndexHelper = InvertedIndexHelper;
+} else {
+  module.exports = InvertedIndexHelper;
+}
 },{}]},{},[1])

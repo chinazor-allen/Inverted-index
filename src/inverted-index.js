@@ -78,4 +78,8 @@ class InvertedIndex {
   }
 }
 
-window.InvertedIndex = InvertedIndex;
+if (typeof window !== 'undefined') {
+    window = window.InvertedIndex = InvertedIndex;
+  } else {
+    module.exports = InvertedIndex;
+  }

@@ -1,6 +1,5 @@
-const InvertedIndexhelper = require('./inverted-index-helper');
-const IndexClass = require('./inverted-index');
-console.log(IndexClass);
+const InvertedIndexhelper = require('../src/inverted-index-helper');
+const IndexClass = require('../src/inverted-index');
 const empty = require('../spec/empty');
 const invalidFile = require('../spec/invalid.json');
 const fs = require('fs');

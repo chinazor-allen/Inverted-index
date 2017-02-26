@@ -52,4 +52,8 @@ class InvertedIndexHelper {
   }
 }
 
-window.InvertedIndexHelper = InvertedIndexHelper;
+if (typeof window !== 'undefined') {
+    window = window.InvertedIndexHelper = InvertedIndexHelper;
+  } else {
+    module.exports = InvertedIndexHelper;
+  }
