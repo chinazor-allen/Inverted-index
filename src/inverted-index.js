@@ -78,6 +78,7 @@ class InvertedIndex {
   }
 }
 
+//condition for exporting file
 if (typeof window !== 'undefined') {
     window = window.InvertedIndex = InvertedIndex;
   } else {
