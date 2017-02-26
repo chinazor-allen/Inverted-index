@@ -52,6 +52,7 @@ class InvertedIndexHelper {
   }
 }
 
+//condition to export file
 if (typeof window !== 'undefined') {
     window = window.InvertedIndexHelper = InvertedIndexHelper;
   } else {
