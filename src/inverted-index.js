@@ -44,12 +44,8 @@ class InvertedIndex {
  * @returns {object}
  */
   getIndex(filename) {
-    if(!filename) {
-      return this.indexTable;
-    }
-    const result = {};
-    result[filename] = this.indexTable[filename];
-    return result;
+    const result = {}
+    return (result[filename] = this.indexTable[filename]) ? result : this.indexTable;
   }
 
 /**
@@ -79,8 +75,8 @@ class InvertedIndex {
 }
 
 //condition to export file
-if (typeof window !== 'undefined') {
-    window = window.InvertedIndex = InvertedIndex;
-  } else {
-    module.exports = InvertedIndex;
-  }
+try {
+  window.InvertedIndex = InvertedIndex;
+} catch(e) {
+  module.exports = InvertedIndex;
+}

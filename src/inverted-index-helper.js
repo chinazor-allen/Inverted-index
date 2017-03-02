@@ -53,8 +53,8 @@ class InvertedIndexHelper {
 }
 
 //condition to export file
-if (typeof window !== 'undefined') {
-    window = window.InvertedIndexHelper = InvertedIndexHelper;
-  } else {
-    module.exports = InvertedIndexHelper;
-  }
+try {
+  window.InvertedIndexHelper = InvertedIndexHelper;
+} catch(e) {
+  module.exports = InvertedIndexHelper;
+}
